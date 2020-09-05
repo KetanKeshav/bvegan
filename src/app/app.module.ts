@@ -20,6 +20,7 @@ import {ProfileComponent} from '@app/components/profile/profile.component';
 import {AuthServiceConfig, GoogleLoginProvider, SocialLoginModule} from 'angularx-social-login';
 import {RegisterComponent} from '@app/components/register/register.component';
 import {HomeLayoutComponent} from '@app/components/home-layout/home-layout.component';
+import { CategoryService } from './services/category.service';
 
 
 const config = new AuthServiceConfig([
@@ -65,7 +66,8 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })
