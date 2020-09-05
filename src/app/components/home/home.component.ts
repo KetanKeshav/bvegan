@@ -1,3 +1,4 @@
+import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {Router} from '@angular/router';
@@ -11,24 +12,15 @@ import {CartService} from '../../services/cart.service';
 })
 export class HomeComponent implements OnInit {
 
-  products: ProductModelServer[] = [];
+  categories = [];
 
 
-  constructor(private productService: ProductService,
-              private cartService: CartService,
-              private router: Router) { }
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe((prods: ServerResponse) => {
-      this.products = prods.products;
+    this.categoryService.getAllCategories().subscribe((categories: any) => {
+      //Access-Control-Allow-Origin :  *
+      this.categories = categories.model.categoryInformations;
     });
-  }
-
-  selectProduct(id: number) {
-    this.router.navigate(['/product', id]).then();
-  }
-
-  AddToCart(id: number) {
-    this.cartService.AddProductToCart(id);
   }
 }
