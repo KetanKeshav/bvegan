@@ -40,4 +40,8 @@ export class HeaderComponent implements OnInit {
     // this.userService.authState$.subscribe(authState => this.authState = authState);
   }
 
+  searchProducts() {
+    
+  }
+
 }
