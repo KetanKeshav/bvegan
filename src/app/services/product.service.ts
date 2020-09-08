@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
@@ -14,12 +14,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   /* This is to fetch all products from the backend server */
-  getAllProducts(numberOfResults= 10) : Observable<ServerResponse> {
-    return this.http.get<ServerResponse>(this.SERVER_URL + '/products', {
-      params: {
-        limit: numberOfResults.toString()
-      }
-    });
+  getAllProducts() {
+    return this.http.get(this.SERVER_URL+'/product-information');
   }
 
   /* GET SINGLE PRODUCT FROM SERVER*/

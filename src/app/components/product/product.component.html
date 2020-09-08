@@ -13,53 +13,19 @@
  <br> <br>
 <div class="container">
 <div class="row">
-<div class="col-md-4">
+<div class="col-md-4" *ngFor="let p of products">
   <figure class="card card-product">
-    <div class="img-wrap"><img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg"></div>
+    <div class="img-wrap"><img src={{p.productImagesEntityList[0].productImageUrl}}></div>
     <figcaption class="info-wrap">
-        <h4 class="title">Pomegranate</h4>
-        <p class="desc">1000g</p>
+        <h4 class="title">{{p.name}}</h4>
+        <p class="desc">{{p.unitInGramsPerUnit}}g</p>
         <div class="price-wrap h5">
-          <span class="price-new">Rs 50.25</span> &nbsp;<del class="price-old">Rs 80.5</del>
+          <span class="price-new">Rs {{p.sellingPricePerUnit}}</span> &nbsp;<del class="price-old">Rs {{p.displayPricePerUnit}}</del>
         </div> 
     </figcaption>
     <div class="center">
         <a href="" class="btn btn-sm btn-success">Order Now</a> 
     </div> <!-- bottom-wrap.// -->
-  </figure>
-</div> <!-- col // -->
-<div class="col-md-4">
-  <figure class="card card-product">
-    <div class="img-wrap"><img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg"> </div>
-    <figcaption class="info-wrap">
-        <h4 class="title">Apple</h4>
-        <p class="desc">1000g</p>
-        <div class="price-wrap h5">
-          <span class="price-new">Rs 180.5</span> &nbsp;<del class="price-old">Rs 200</del>
-        </div> 
-    </figcaption>
-    <div class="center">
-        <a href="" class="btn btn-sm btn-success">Order Now</a> 
-    </div>
-  </figure>
-</div> <!-- col // -->
-
-
-<div class="col-md-4">
-  <figure class="card card-product">
-    <div class="img-wrap"><img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg"></div>
-    <figcaption class="info-wrap">
-        <h4 class="title">Orange</h4>
-        <p class="desc">1000g</p>
-        <div class="price-wrap h5">
-          <span class="price-new">Rs 60.3</span> &nbsp;<del class="price-old">Rs 80</del>
-        </div> 
-    </figcaption>
-    <!--<div class="bottom-wrap">-->
-    <div class="center">
-        <a href="" class="btn btn-sm btn-success">Order Now</a> 
-    </div>
-    <!--</div>-->
   </figure>
 </div> <!-- col // -->
 </div> <!-- row.// -->

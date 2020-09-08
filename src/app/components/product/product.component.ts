@@ -1,3 +1,4 @@
+import { UserService } from '@app/services/user.service';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {CartService} from '../../services/cart.service';
@@ -11,14 +12,16 @@ declare let $: any;
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements OnInit, AfterViewInit {
-  id: number;
-  product;
+export class ProductComponent implements OnInit { //, AfterViewInit
+  categoryId: number;
+  products;
   thumbImages: any[] = [];
+  userRole = ''
 
   @ViewChild('quantity') quantityInput;
 
   constructor(private productService: ProductService,
+              private userService: UserService,
               private cartService: CartService,
               private route: ActivatedRoute) {
   }
@@ -31,22 +34,21 @@ export class ProductComponent implements OnInit, AfterViewInit {
           return param.params.id;
         })
       )
-      .subscribe(prodId => {
-        this.id = prodId;
-        this.productService.getSingleProduct(this.id).subscribe(prod => {
-          this.product = prod;
-
-          if (prod.images !== null) {
-            this.thumbImages = prod.images.split(';');
-          }
-
+      .subscribe(categoryId => {
+        this.categoryId = categoryId;
+        this.productService.getAllProducts().subscribe((prod: any) => {
+          this.products = prod.model.products;
         });
       });
+
+      this.userService.userRoleName$.subscribe(rlName=> {
+        this.userRole = rlName;
+      })
 
 
   }
 
-  ngAfterViewInit(): void {
+  /*ngAfterViewInit(): void {
 // Product Main img Slick
     $('#product-main-img').slick({
       infinite: true,
@@ -121,5 +123,5 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   addToCart(id: number) {
     this.cartService.AddProductToCart(id, this.quantityInput.nativeElement.value);
-  }
+  }*/
 }

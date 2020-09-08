@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   cartData: CartModelServer;
   cartTotal: number;
   authState: boolean;
+  roleName = '';
   constructor(public cartService: CartService,
               public userService: UserService
   ) {
@@ -22,7 +23,9 @@ export class HeaderComponent implements OnInit {
 
     this.cartService.cartData$.subscribe(data => this.cartData = data);
 
-    this.userService.authState$.subscribe(authState => this.authState = authState);
+    this.roleName = this.userService.getRoleName();
+    this.authState = this.roleName != undefined && this.roleName.length > 0;
+    // this.userService.authState$.subscribe(authState => this.authState = authState);
   }
 
 }
