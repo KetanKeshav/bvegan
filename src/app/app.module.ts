@@ -23,6 +23,7 @@ import {HomeLayoutComponent} from '@app/components/home-layout/home-layout.compo
 import { CategoryService } from './services/category.service';
 import { RequestInterceptor } from './services/request-interceptor';
 import { FireBaseService } from './services/fire-base.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 const config = new AuthServiceConfig([
@@ -62,7 +63,8 @@ export function provideConfig() {
     ToastrModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    NgbModule
   ],
   providers: [
     FireBaseService,
