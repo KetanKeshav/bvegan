@@ -12,6 +12,9 @@ import {CartService} from '../../services/cart.service';
 })
 export class HomeComponent implements OnInit {
 
+  
+  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/1700/500`);
+
   categories = [];
 
 
