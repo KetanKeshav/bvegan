@@ -3,6 +3,7 @@ import {CartModelServer} from '../../models/cart.model';
 import {CartService} from '../../services/cart.service';
 import {UserService} from '../../services/user.service';
 import { CategoryService } from '@app/services/category.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,9 @@ export class HeaderComponent implements OnInit {
   categories;
   constructor(public cartService: CartService,
               public userService: UserService,
-              private categoryService: CategoryService
+              private categoryService: CategoryService,
+              private route: ActivatedRoute,
+              private router: Router,
   ) {
   }
 
@@ -41,7 +44,9 @@ export class HeaderComponent implements OnInit {
   }
 
   searchProducts() {
-    
+    if (this.selectedCategory) {
+      this.router.navigateByUrl('/product/'+this.selectedCategory.categoryId);
+    }
   }
 
 }

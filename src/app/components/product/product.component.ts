@@ -2,7 +2,7 @@ import { UserService } from '@app/services/user.service';
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {CartService} from '../../services/cart.service';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 
 declare let $: any;
@@ -24,7 +24,12 @@ export class ProductComponent implements OnInit { //, AfterViewInit
   constructor(private productService: ProductService,
               private userService: UserService,
               private cartService: CartService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
+                // override the route reuse strategy
+      this.router.routeReuseStrategy.shouldReuseRoute = function() {
+        return false;
+    };
   }
 
   ngOnInit(): void {

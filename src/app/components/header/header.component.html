@@ -33,7 +33,7 @@
         <div class="col-md-6">
           <div class="header-search">
             <form>
-              <select class="input-select" [(ngModel)]="selectedCategory">
+              <select name="categoryDropDown" class="input-select" [(ngModel)]="selectedCategory">
                 <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
               </select>
               <input class="input" placeholder="Search here">
