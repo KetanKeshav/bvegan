@@ -11,7 +11,7 @@ import {CheckoutComponent} from '@app/components/checkout/checkout.component';
 import {HomeComponent} from '@app/components/home/home.component';
 import {ProductComponent} from '@app/components/product/product.component';
 import {ThankyouComponent} from '@app/components/thankyou/thankyou.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {ToastrModule} from 'ngx-toastr';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,6 +21,8 @@ import {AuthServiceConfig, GoogleLoginProvider, SocialLoginModule} from 'angular
 import {RegisterComponent} from '@app/components/register/register.component';
 import {HomeLayoutComponent} from '@app/components/home-layout/home-layout.component';
 import { CategoryService } from './services/category.service';
+import { RequestInterceptor } from './services/request-interceptor';
+import { FireBaseService } from './services/fire-base.service';
 
 
 const config = new AuthServiceConfig([
@@ -63,11 +65,17 @@ export function provideConfig() {
     SocialLoginModule
   ],
   providers: [
+    FireBaseService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
-    CategoryService
+    CategoryService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

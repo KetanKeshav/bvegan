@@ -3,15 +3,11 @@
   <!-- TOP HEADER -->
   <div id="top-header">
     <div class="container">
-     <!-- <ul class="header-links pull-left">
-        <li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-        <li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
-        <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
-      </ul>-->
+
       <ul class="header-links pull-right">
         <li><a routerLink="/profile"><i class="fa fa-sign-in"></i> {{authState === false ? 'LOGIN' : 'My Account'}}</a></li>
-        <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> REGISTER</a></li>
-        <li><a href="/test/admin" *ngIf="authState"><i class="fa fa-user-plus"></i> ADMIN</a></li>
+        <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> SIGN UP</a></li>
+        <li *ngIf="roleName == 'ADMIN'"><a href="/product/1" ><i class="fa fa-user-plus"></i> ADMIN</a></li>
       </ul>
     </div>
   </div>

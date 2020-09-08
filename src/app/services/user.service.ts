@@ -12,6 +12,7 @@ export class UserService {
   auth = false;
   private SERVER_URL = environment.SERVER_URL;
   private user;
+  userRoleName$ = new BehaviorSubject<string>(null);
   authState$ = new BehaviorSubject<boolean>(this.auth);
   userData$ = new BehaviorSubject<SocialUser | ResponseModel | object>(null);
   loginMessage$ = new BehaviorSubject<string>(null);
@@ -54,23 +55,28 @@ export class UserService {
   }
 
   //  Login User with Email and Password
-  loginUser(email: string, password: string) {
-
-    this.httpClient.post<ResponseModel>(`${this.SERVER_URL}/auth/login`, {email, password})
-      .pipe(catchError((err: HttpErrorResponse) => of(err.error.message)))
-      .subscribe((data: ResponseModel) => {
-        if (typeof (data) === 'string') {
-          this.loginMessage$.next(data);
-        } else {
-          this.auth = data.auth;
-          this.userRole = data.role;
-          this.authState$.next(this.auth);
-          this.userData$.next(data);
-        }
-      });
-
+  loginUser(emailId: string, password: string) {
+    return this.httpClient.post(`${this.SERVER_URL}/login`, {emailId, password});
   }
 
+  getDecodedJWTToken() {
+    if(localStorage.getItem('customToken')) {
+      return JSON.parse(atob(localStorage.getItem('customToken').split('.')[1]));
+    }
+  }
+
+  getAuThorizationToken(refreshIdToken: string) {
+    return this.httpClient.post(`${this.SERVER_URL}/authorization-token`, {refreshIdToken});
+  }
+
+  setRoleInApp() {
+    let decodedJwt = this.getDecodedJWTToken();
+    this.userRoleName$.next(decodedJwt?.claims?.role);
+  }
+
+  getRoleName() {
+    return this.getDecodedJWTToken()?.claims?.role;
+  }
 //  Google Authentication
   googleLogin() {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
