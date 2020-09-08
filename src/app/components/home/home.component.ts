@@ -20,7 +20,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.getAllCategories().subscribe((categories: any) => {
       //Access-Control-Allow-Origin :  *
-      this.categories = categories.model.categoryInformations;
+      this.categories = categories.model.categoryInformations.sort(function(a, b){
+        return a.priorityOrder == b.priorityOrder ? 0 : +(a.priorityOrder > b.priorityOrder) || -1;
+      });
     });
   }
 }

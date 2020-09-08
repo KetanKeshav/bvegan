@@ -14,7 +14,8 @@ declare let $: any;
 })
 export class ProductComponent implements OnInit { //, AfterViewInit
   categoryId: number;
-  products;
+  prdtId;
+  products: any[] = [];
   thumbImages: any[] = [];
   userRole = ''
 
@@ -30,16 +31,46 @@ export class ProductComponent implements OnInit { //, AfterViewInit
     this.route.paramMap
       .pipe(
         map((param: ParamMap) => {
+          
           // @ts-ignore
           return param.params.id;
         })
       )
       .subscribe(categoryId => {
         this.categoryId = categoryId;
+      });
+
+      this.route.queryParams.subscribe(q => {
+        this.prdtId = q['productId'];
+      });
+
+      if (this.categoryId) {
         this.productService.getAllProducts().subscribe((prod: any) => {
           this.products = prod.model.products;
+          let prdts = this.products.filter(p=>{
+           return p.categoryId == this.categoryId;
+          }).sort(function(a, b){
+            return a.priorityOrder == b.priorityOrder ? 0 : +(a.priorityOrder > b.priorityOrder) || -1;
+          });
+          
+          let nonCatPrdts = this.products.filter(p=>{
+            return p.categoryId != this.categoryId;
+          }).sort(function(a, b){
+            return a.priorityOrder == b.priorityOrder ? 0 : +(a.priorityOrder > b.priorityOrder) || -1;
+          });
+          
+          nonCatPrdts.forEach(p=>{
+            prdts.push(p);
+          });
+          this.products = prdts;
+          if (this.prdtId) {
+            this.products = prdts.filter(p=>{
+              return p.productId == this.prdtId;
+             });
+          }
         });
-      });
+        
+      }
 
       this.userService.userRoleName$.subscribe(rlName=> {
         this.userRole = rlName;

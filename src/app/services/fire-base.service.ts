@@ -40,7 +40,7 @@ public validateToken(backendToken) {
         console.error("error");
       }                         
     });
-    auth.onAuthStateChanged(function(user) {
+    auth.onIdTokenChanged(function(user) {
       if (user) {
         user.getIdToken().then(
           token => {           
