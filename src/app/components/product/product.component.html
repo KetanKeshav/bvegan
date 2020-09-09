@@ -1,27 +1,123 @@
+<head>
+<meta charset="UTF-8">
+<meta name = "viewport" content = "width=device-width, initial-scale=1.0">
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- <br> <br>
+</head>
+<br><br>
 <div class="container">
 <div class="row">
 <div class="col-md-4" *ngFor="let p of products">
   <figure class="card card-product">
     <div class="img-wrap"><img src={{p.productImagesEntityList[0].productImageUrl}}></div>
     <figcaption class="info-wrap">
-        <h4 class="title">{{p.name}}</h4>
-        <p class="desc">{{p.unitInGramsPerUnit}}g</p>
-        <div class="price-wrap h5">
-          <span class="price-new">Rs {{p.sellingPricePerUnit}}</span> &nbsp;<del class="price-old">Rs {{p.displayPricePerUnit}}</del>
-        </div> 
+         <div class="title" class="editable"><i class="fa fa-pencil"></i><h4 contenteditable>{{p.name}}</h4></div>
+         <div class="desc" class="editable"><i class="fa fa-pencil"></i><p contenteditable>{{p.unitInGramsPerUnit}}g</p></div>
+
+        <div class="editable">
+          <div class="editable"><span class="price-new"><i class="fa fa-pencil"></i><h5 contenteditable>Rs{{p.sellingPricePerUnit}}</h5></span> &nbsp;<del class="editable"class="price-old"><h5 contenteditable>Rs {{p.displayPricePerUnit}}</h5></del></div>
+        </div>
     </figcaption>
-    <div class="center">
-        <a href="" class="btn btn-sm btn-success">Order Now</a> 
-    </div> <!-- bottom-wrap.// -->
-  </figure>
+
+<div class="center">
+<div class="main">
+    <div class="btn">
+        <button class="minusBtn">-</button>
+        <button class="mainBtn">ADD TO CART</button>
+        <button class="plusBtn">+</button>
+    </div>
+</div>
+</div>
+
+</figure>
+
 </div> <!-- col // -->
 </div> <!-- row.// -->
-
-
-
 </div> 
-<!--container.//-->
+
+<script>
+
+    let btn = document.querySelector('.mainBtn');
+    let mbtn = document.querySelector('.minusBtn'); 
+    let pbtn = document.querySelector('.plusBtn');
+    
+    btn.addEventListener("click",()=>{
+        if(btn.innerText == 'ADD TO CART'){
+            btn.innerText = 1 ; 
+            pbtn.style.display = 'inline-block';
+            mbtn.style.display = 'inline-block';
+        }
+    })     
+    mbtn.addEventListener("click",()=>{
+    if(btn.innerText ==5){
+        pbtn.style.display='inline-block';
+    }
+
+    if(btn.innerText < 2){    
+        btn.innerText = 'ADD TO CART'; 
+        pbtn.style.display = 'none';
+        mbtn.style.display = 'none';
+    }else{
+        btn.innerText=btn.innerText - 1;
+    }
+    }) 
+
+    pbtn.addEventListener("click",()=>{
+    
+        btn.innerText = +(btn.innerText) + 1 ;
+        if(btn.innerText == 5){
+            pbtn.style.display='none';
+        } 
+    }) 
+
+
+
+$(function() {
+$('#profile').addClass('dragging').removeClass('dragging');
+});
+$('#profile').on('dragover', function() {
+  $('#profile').addClass('dragging')
+}).on('dragleave', function() {
+  $('#profile').removeClass('dragging')
+}).on('drop', function(e) {
+  $('#profile').removeClass('dragging hasImage');
+  if (e.originalEvent) {
+    var file = e.originalEvent.dataTransfer.files[0];
+    console.log(file);
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(e) {
+      console.log(reader.result);
+      $('#profile').css('background-image', 'url(' + reader.result + ')').addClass('hasImage');
+
+    }
+
+  }
+})
+$('#profile').on('click', function(e) {
+  console.log('clicked')
+  $('#mediaFile').click();
+});
+window.addEventListener("dragover", function(e) {
+  e = e || event;
+  e.preventDefault();
+}, false);
+window.addEventListener("drop", function(e) {
+  e = e || event;
+  e.preventDefault();
+}, false);
+$('#mediaFile').change(function(e) {
+  var input = e.target;
+  if (input.files && input.files[0]) {
+    var file = input.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(e) {
+      console.log(reader.result);
+      $('#profile').css('background-image', 'url(' + reader.result + ')').addClass('hasImage');
+    }
+  }
+})
+
+</script>
