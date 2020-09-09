@@ -5,6 +5,10 @@ import {UserService} from '../../services/user.service';
 import { CategoryService } from '@app/services/category.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, catchError, map  } from 'rxjs/operators';
+import { ProductService } from '@app/services/product.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -17,8 +21,11 @@ export class HeaderComponent implements OnInit {
   roleName = '';
   selectedCategory;
   categories;
+  prdts: any;
+  public selectedProduct: any;
   constructor(public cartService: CartService,
               public userService: UserService,
+              private productService: ProductService,
               private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router,
@@ -32,7 +39,12 @@ export class HeaderComponent implements OnInit {
         return a.priorityOrder == b.priorityOrder ? 0 : +(a.priorityOrder > b.priorityOrder) || -1;
       });
     });
+    
+    this.productService.getAllProducts().subscribe((prod: any) => {
+      this.prdts = prod.model.products;
+    });
 
+   
 
     this.cartService.cartTotal$.subscribe(total => this.cartTotal = total);
 
@@ -43,7 +55,32 @@ export class HeaderComponent implements OnInit {
     // this.userService.authState$.subscribe(authState => this.authState = authState);
   }
 
+  inputFormatter(value: any)   {
+    if(value.name)
+      return value.name
+    return value;
+  }
+
+  resultFormatter(value: any)   {
+    if(value.name)
+      return value.name
+    return value;
+  }
+
+  
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(prd => prd.length < 2 ? []
+        : this.prdts.filter(v => v.name.toLowerCase().indexOf(prd.toLowerCase()) > -1).slice(0, 10))
+    )
+ 
+
   searchProducts() {
+    if (this.selectedProduct) {
+      this.router.navigateByUrl('/product/1?'+'productId=' + this.selectedProduct.productId);
+    }
     if (this.selectedCategory) {
       this.router.navigateByUrl('/product/'+this.selectedCategory.categoryId);
     }

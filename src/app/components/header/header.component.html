@@ -36,7 +36,8 @@
               <select name="categoryDropDown" class="input-select" [(ngModel)]="selectedCategory">
                 <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
               </select>
-              <input class="input" placeholder="Search here">
+              <input id="selectedProduct" name="selectedProduct" type="text" [(ngModel)]="selectedProduct" [ngbTypeahead]="search"
+              class="input" placeholder="Search here" [inputFormatter]="inputFormatter" [resultFormatter]="resultFormatter">
               <button class="search-btn" (click)="searchProducts()">Search</button>
             </form>
           </div>
