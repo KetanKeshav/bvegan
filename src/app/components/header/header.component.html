@@ -4,6 +4,7 @@
   <div id="top-header">
     <div class="container">
 
+
       <ul class="header-links pull-right">
         <li><a routerLink="/profile"><i class="fa fa-sign-in"></i> {{authState === false ? 'LOGIN' : 'My Account'}}</a></li>
         <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> SIGN UP</a></li>
@@ -11,6 +12,7 @@
       </ul>
     </div>
   </div>
+
   <!-- /TOP HEADER -->
 
   <!-- MAIN HEADER -->
@@ -33,12 +35,14 @@
         <div class="col-md-6">
           <div class="header-search">
             <form>
-              <select name="categoryDropDown" class="input-select" [(ngModel)]="selectedCategory">
+              <select name="categoryDropDown" class="input-select" [(ngModel)]="selectedCategory" 
+              (change)="onCatChange($event)">
                 <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
               </select>
-              <input id="selectedProduct" name="selectedProduct" type="text" [(ngModel)]="selectedProduct" [ngbTypeahead]="search"
+              <input (change)="onTypeAheadChange()" (keyup)="keyFunc($event)"
+              (selectItem)="selectedItem($event)" id="selectedProduct" name="selectedProduct" type="text" [(ngModel)]="selectedProduct" [ngbTypeahead]="search"
               class="input" placeholder="Search here" [inputFormatter]="inputFormatter" [resultFormatter]="resultFormatter">
-              <button class="search-btn" (click)="searchProducts()">Search</button>
+             <!-- <button class="search-btn" (click)="searchProducts()">Search</button> -->
             </form>
           </div>
         </div>

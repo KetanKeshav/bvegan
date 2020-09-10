@@ -75,14 +75,45 @@ export class HeaderComponent implements OnInit {
       map(prd => prd.length < 2 ? []
         : this.prdts.filter(v => v.name.toLowerCase().indexOf(prd.toLowerCase()) > -1).slice(0, 10))
     )
+
+    /*
+    search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(prd => prd.length < 2 ? []
+        : this.prdts.filter(v => v.name.toLowerCase().indexOf(prd.toLowerCase()) > -1).slice(0, 10))
+    )*/
  
 
   searchProducts() {
     if (this.selectedProduct) {
       this.router.navigateByUrl('/product/1?'+'productId=' + this.selectedProduct.productId);
-    }
-    if (this.selectedCategory) {
+    } else if (this.selectedCategory) {
       this.router.navigateByUrl('/product/'+this.selectedCategory.categoryId);
+    }
+  }
+
+  onTypeAheadChange() {
+    console.log(this.selectedProduct);
+  }
+  selectedItem(item){
+    //this.clickedItem=item.item;
+    this.selectedProduct  = item.item;
+    this.searchProducts();
+  }
+
+  onCatChange(ev) {
+    this.searchProducts(); // should print option1
+  }
+
+  keyFunc(ev) {
+    if(undefined !== ev.target.value && ev.target.value.trim().length == 0) {
+      if (this.selectedCategory) {
+        this.router.navigateByUrl('/product/'+this.selectedCategory.categoryId);
+      } else {
+        this.router.navigateByUrl('/product/1');
+      }
     }
   }
 
