@@ -9,6 +9,8 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {ProfileGuard} from './guard/profile.guard';
 import {RegisterComponent} from './components/register/register.component';
 import {HomeComponent} from './components/home/home.component';
+import {OrderComponent} from './components/order/order.component';
+import {OrderDetailsComponent} from './components/order-details/order-details.component';
 import {HomeLayoutComponent} from './components/home-layout/home-layout.component';
 
 
@@ -27,6 +29,12 @@ const routes: Routes = [
       },
       {
         path: 'cart', component: CartComponent
+      },
+      {
+        path: 'order', component: OrderComponent
+      },
+      {
+        path: 'order-details', component: OrderDetailsComponent
       },
       {
         path: 'checkout', component: CheckoutComponent, canActivate: [ProfileGuard]

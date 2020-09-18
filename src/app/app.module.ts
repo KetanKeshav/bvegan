@@ -24,6 +24,8 @@ import { CategoryService } from './services/category.service';
 import { RequestInterceptor } from './services/request-interceptor';
 import { FireBaseService } from './services/fire-base.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OrderComponent } from './components/order/order.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 
 const config = new AuthServiceConfig([
@@ -51,7 +53,9 @@ export function provideConfig() {
     LoginComponent,
     ProfileComponent,
     RegisterComponent,
-    HomeLayoutComponent
+    HomeLayoutComponent,
+    OrderComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
