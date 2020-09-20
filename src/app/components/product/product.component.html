@@ -7,16 +7,31 @@
 </head>
 <br><br>
 <div class="container">
-<div class="row">
+<div *ngIf="userRole=='ADMIN'" class="row">
 <div class="col-md-4" *ngFor="let p of products">
   <figure class="card card-product">
     <div class="img-wrap"><img src={{p.productImagesEntityList[0].productImageUrl}}></div>
     <figcaption class="info-wrap">
-         <div class="title" class="editable"><i class="fa fa-pencil"></i><h4 contenteditable>{{p.name}}</h4></div>
-         <div class="desc" class="editable"><i class="fa fa-pencil"></i><p contenteditable>{{p.unitInGramsPerUnit}}g</p></div>
+         <div class="desc" class="editable"><i class="fa fa-pencil"></i><input name="status" 
+          [(ngModel)]="p.status"/></div>
+         <div class="title" class="editable"><i class="fa fa-pencil"></i><input name="name" [(ngModel)]="p.name"/></div>
+         <div class="desc" class="editable"><i class="fa fa-pencil"></i><input name="unitInGramsPerUnit" 
+          [(ngModel)]="p.unitInGramsPerUnit"/>
+         </div>
 
         <div class="editable">
-          <div class="editable"><span class="price-new"><i class="fa fa-pencil"></i><h5 contenteditable>Rs{{p.sellingPricePerUnit}}</h5></span> &nbsp;<del class="editable"class="price-old"><h5 contenteditable>Rs {{p.displayPricePerUnit}}</h5></del></div>
+          <div class="editable">
+            <span class="price-new">
+              <i class="fa fa-pencil"></i>Rs.
+              <input name="sellingPricePerUnit" 
+              [ngModel]="p.sellingPricePerUnit" (ngModelChange)="p.sellingPricePerUnit=$event" 
+              />
+            </span> &nbsp;<del class="editable"class="price-old">
+              Rs.<input name="displayPricePerUnit" 
+              [ngModel]="p.displayPricePerUnit" (ngModelChange)="p.displayPricePerUnit=$event" 
+              />
+            </del>
+          </div>
         </div>
     </figcaption>
 
@@ -24,8 +39,7 @@
 <div class="main">
     <div class="btn">
         <button class="minusBtn">-</button>
-        <button class="mainBtn">ADD TO CART</button>
-        <button class="plusBtn">+</button>
+        <button class="mainBtn" (click)="adminUpdateProductDetails(p.productId)">Save</button>
     </div>
 </div>
 </div>

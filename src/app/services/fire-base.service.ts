@@ -23,7 +23,7 @@ export class FireBaseService {
   });
 }
 public validateToken(backendToken) {
-   
+  
     var auth = firebase.auth();
     auth.signInWithCustomToken(backendToken)
     .then(s=>{
@@ -43,13 +43,16 @@ public validateToken(backendToken) {
     auth.onIdTokenChanged(function(user) {
       if (user) {
         user.getIdToken().then(
-          token => {           
-            console.log('updated Sai');                             
+          token => {                                    
             localStorage.setItem("authTokenForBkened", token);
           }
         )
       }  
     });
+ }
+
+ hasValidAuthToken() {
+  return firebase.auth().currentUser != null;
  }
 
 }

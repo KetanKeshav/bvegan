@@ -26,5 +26,10 @@ export class ProductService {
   /*GET PRODUCTS FROM ONE CATEGORY */
   getProductsFromCategory(catName: string) : Observable<ProductModelServer[]>  {
     return this.http.get<ProductModelServer[]>(this.SERVER_URL + '/products/category/' + catName);
-   }
+  }
+
+  updateProduct(product:any) {
+    return this.http.post(this.SERVER_URL+'/product-details/update', product);
+    
+  }
 }

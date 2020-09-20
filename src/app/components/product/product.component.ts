@@ -1,9 +1,11 @@
 import { UserService } from '@app/services/user.service';
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {CartService} from '../../services/cart.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
+import * as _ from 'lodash';
+import { NotificationService } from '@app/services/notification.service';
 
 declare let $: any;
 
@@ -16,9 +18,11 @@ export class ProductComponent implements OnInit { //, AfterViewInit
   categoryId: number;
   prdtId;
   products: any[] = [];
+  productsOnLoad: any[] = [];
   thumbImages: any[] = [];
   userRole = '';
   compRoute: ActivatedRoute;
+  @ViewChild('fileInput') el: ElementRef;
   
 
   @ViewChild('quantity') quantityInput;
@@ -27,7 +31,8 @@ export class ProductComponent implements OnInit { //, AfterViewInit
               private userService: UserService,
               private cartService: CartService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private notifyService : NotificationService) {
               this.compRoute = route;
               this.route.params.subscribe(q => {
                 this.categoryId = q.id;
@@ -46,20 +51,24 @@ export class ProductComponent implements OnInit { //, AfterViewInit
 
   
   ngOnInit(): void {
-      this.userService.userRoleName$.subscribe(rlName=> {
-        this.userRole = rlName;
-      });
-
-      
-     
+    this.userRole = this.userService.getRoleName();  
   }
 
- 
+  uploadFile(event) {
+  }
 
   loadProducts() {
     if (this.categoryId) {
       this.productService.getAllProducts().subscribe((prod: any) => {
         this.products = prod.model.products;
+        if (this.userService.getRoleName() != 'ADMIN') {
+          this.products = this.products.filter(p=>{
+            return p.status == 'ACTIVE';
+           });
+        }
+        
+        this.productsOnLoad = _.cloneDeep(this.products);
+        //productsOnLoad
         let prdts = this.products.filter(p=>{
          return p.categoryId == this.categoryId;
         }).sort(function(a, b){
@@ -82,6 +91,28 @@ export class ProductComponent implements OnInit { //, AfterViewInit
            });
         }
       });
+      
+    }
+  }
+
+  adminUpdateProductDetails(productId) {
+    if (this.userService.getRoleName() == 'ADMIN') {
+      let modifiedProduct:any = this.products.filter(p=>p.productId == productId);
+      let prdtTobSaved:any = {};
+      prdtTobSaved['productId'] = productId;
+      prdtTobSaved['name'] = modifiedProduct[0].name;
+      prdtTobSaved['displayPricePerUnit'] = modifiedProduct[0].displayPricePerUnit;
+      prdtTobSaved['sellingPricePerUnit'] = modifiedProduct[0].sellingPricePerUnit;
+      prdtTobSaved['status'] = modifiedProduct[0].status;
+      prdtTobSaved['unitInGramsPerUnit'] = modifiedProduct[0].unitInGramsPerUnit;
+      prdtTobSaved['categoryId'] = modifiedProduct[0].categoryId;
+      this.productService.updateProduct(prdtTobSaved).subscribe((res:any)=>{
+       /* if (res && res.code == 200) {
+          this.notifyService.showSuccess(res.model.msg, "Success");
+        } */
+      },(err)=>{
+       // this.notifyService.showError(err.message, "Failure");
+      })
       
     }
   }

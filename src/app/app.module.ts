@@ -26,6 +26,7 @@ import { FireBaseService } from './services/fire-base.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { NotificationService } from './services/notification.service';
 
 
 const config = new AuthServiceConfig([
@@ -72,6 +73,7 @@ export function provideConfig() {
   ],
   providers: [
     FireBaseService,
+    NotificationService,
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
