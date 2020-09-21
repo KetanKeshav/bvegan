@@ -30,6 +30,9 @@ export class ProductService {
 
   updateProduct(product:any) {
     return this.http.post(this.SERVER_URL+'/product-details/update', product);
-    
+  }
+
+  getListOfUserOrders() {
+    return this.http.get(this.SERVER_URL+'/user-order');
   }
 }

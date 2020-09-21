@@ -37,40 +37,72 @@ export class RequestInterceptor implements HttpInterceptor {
     if (this.fireBaseService.hasValidAuthToken()) {
                     
     }
-    return next.handle(request).pipe(
-      tap(evt => {
-          if ((request.method=='POST' || request.method=='PUT') && evt instanceof HttpResponse) {
-              if(evt.body && evt.body.code == '200') {
-                this.notificationService.showSuccess(evt.body.model.msg, 'Success');
-              }
-            }
-      }),
-      catchError((err: any) => {
-          if(err instanceof HttpErrorResponse) {
-              try {
-                if (err.error.code == '403') {
-                  this.notificationService.showError(err.error.message, 'Error');
-                  
-                 /* this.userService.getAuThorizationToken(localStorage.getItem('refreshIdToken'))
-                  .subscribe((aData: any) => {
-                    let customToken = aData.model.customToken;;
-                    this.userService.loginMessage$.next(''); //send custom token to firebase to get auth token
-                    localStorage.setItem('customToken', customToken);
-                    this.fireBaseService.validateToken(customToken);
-                    this.userService.setRoleInApp();
-                  }, (err) => {
-                    this.userService.loginMessage$.next(err.error.message);
-                    this.userService.userRoleName$.next('');
-                  });*/
-                } else {
-                  this.notificationService.showError(err.error.message, 'Error');
-                }
-                 
-              } catch(e) {
-                this.notificationService.showError('An error occurred', 'Error');
-              }
-          }
-          return of(err);
-      }));
+    return new Observable<HttpEvent<any>>(subscriber => {
+
+      // first try for the request
+      next.handle(request)
+          .subscribe((event: HttpEvent<any>) => {
+                  if (event instanceof HttpResponse) {
+                      // the request went well and we have valid response
+                      // give response to user and complete the subscription
+                      if ((request.method=='POST' || request.method=='PUT') && event instanceof HttpResponse) {
+                        if(event.body && event.body.code == '200') {
+                          this.notificationService.showSuccess(event.body.model.msg, 'Success');
+                        }
+                      }
+                      subscriber.next(event);
+                      subscriber.complete();
+                  }
+              },
+              error => {
+                  if (error instanceof HttpErrorResponse && error.status === 403
+                    && localStorage.getItem('refreshIdToken') !=undefined
+                    && localStorage.getItem('refreshIdToken').trim().length>0) {
+                      console.log('403 error, trying to re-login');
+
+                      // try to re-log the user
+                      this.userService.getAuThorizationToken(localStorage.getItem('refreshIdToken')).
+                      subscribe((aData: any) => {
+                        let customToken = aData.model.customToken;
+                        localStorage.setItem('customToken', customToken);
+                        this.fireBaseService.validateToken(customToken);
+                          // re-login successful -> create new headers with the new auth token
+                          setTimeout(() => {
+                            let newRequest = request.clone({
+                              headers: request.headers.set('Authorization', 'Bearer ' + localStorage.getItem('authTokenForBkened'))
+                          });
+
+                          // retry the request with the new token
+                          next.handle(newRequest)
+                              .subscribe(newEvent => {
+                                  if (newEvent instanceof HttpResponse) {
+                                      // the second try went well and we have valid response
+                                      // give response to user and complete the subscription
+                                      subscriber.next(newEvent);
+                                      subscriber.complete();
+                                  }
+                              }, error => {
+                                  // second try went wrong -> throw error to subscriber
+                                  this.notificationService.showError(error.error.message, 'Error');
+                                  subscriber.error(error);
+                              });
+                          }, 500);
+                          
+                      });
+                  } else {
+                    this.notificationService.showError(error.error.message, 'Error');
+                      // the error was not related to auth token -> throw error to subscriber
+                      subscriber.error(error);
+                  }
+              });
+  });
+
+}
+
+/**
+* Try to re-login the user.
+*/
+  private reLogin(): Observable<string> {
+    return ;
   }
 }

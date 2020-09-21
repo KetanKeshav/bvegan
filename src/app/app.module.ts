@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { NotificationService } from './services/notification.service';
+import { OtpvalidationComponent } from './components/otpvalidation/otpvalidation.component';
 
 
 const config = new AuthServiceConfig([
@@ -56,7 +57,8 @@ export function provideConfig() {
     RegisterComponent,
     HomeLayoutComponent,
     OrderComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    OtpvalidationComponent
   ],
   imports: [
     BrowserModule,

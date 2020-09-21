@@ -3,6 +3,7 @@ import {EmailValidator, FormBuilder, FormGroup, Validators} from '@angular/forms
 import {CheckEmailService} from '../../validators/check-email.service';
 import {UserService} from '../../services/user.service';
 import {map} from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -20,13 +21,14 @@ export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private checkEmailService: CheckEmailService,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router,) {
 
     this.registrationForm = fb.group({
-      fname: ['', [Validators.required, Validators.minLength(4)]],
-      lname: ['', [Validators.required, Validators.minLength(4)]],
-      email: ['', [Validators.required, Validators.pattern(this.emailPattern)],
-        [this.checkEmailService.emailValidate()]
+      name: ['', [Validators.required, Validators.minLength(4)]],
+      mobile: ['', [Validators.required, Validators.minLength(4)]],
+      email: ['', [Validators.required, Validators.pattern(this.emailPattern)]//,
+       // [this.checkEmailService.emailValidate()]
       ],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
@@ -51,13 +53,11 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
 
-    if (this.registrationForm.invalid) {
-      return;
-    }
-
     // @ts-ignore
     this.userService.registerUser({...this.registrationForm.value}).subscribe((response: { message: string }) => {
-      this.registrationMessage = response.message;
+      //this.registrationMessage = response.message;
+      this.router.navigateByUrl('/otp-validation');
+      
     });
 
     this.registrationForm.reset();

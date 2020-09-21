@@ -12,6 +12,7 @@ import {HomeComponent} from './components/home/home.component';
 import {OrderComponent} from './components/order/order.component';
 import {OrderDetailsComponent} from './components/order-details/order-details.component';
 import {HomeLayoutComponent} from './components/home-layout/home-layout.component';
+import { OtpvalidationComponent } from './components/otpvalidation/otpvalidation.component';
 
 
 const routes: Routes = [
@@ -51,6 +52,9 @@ const routes: Routes = [
       {
         path: 'register', component: RegisterComponent
       },
+      {
+        path: 'otp-validation', component: OtpvalidationComponent
+      }
     ]
   },
   // Wildcard Route if no route is found == 404 NOTFOUND page

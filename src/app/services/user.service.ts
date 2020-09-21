@@ -21,7 +21,7 @@ export class UserService {
   constructor(private authService: AuthService,
               private httpClient: HttpClient) {
 
-    authService.authState.subscribe((user: SocialUser) => {
+    /*authService.authState.subscribe((user: SocialUser) => {
       if (user != null) {
         this.httpClient.get(`${this.SERVER_URL}/users/validate/${user.email}`).subscribe((res: { status: boolean, user: object }) => {
           //  No user exists in database with Social Login
@@ -32,7 +32,7 @@ export class UserService {
               fname: user.firstName,
               lname: user.lastName,
               password: '123456'
-            }, user.photoUrl, 'social').subscribe(response => {
+            }).subscribe(response => {
               if (response.message === 'Registration successful') {
                 this.auth = true;
                 this.userRole = 555;
@@ -51,7 +51,7 @@ export class UserService {
         });
 
       }
-    });
+    });*/
   }
 
   //  Login User with Email and Password
@@ -88,17 +88,12 @@ export class UserService {
     this.authState$.next(this.auth);
   }
 
-  registerUser(formData: any, photoUrl?: string, typeOfUser?: string): Observable<{ message: string }> {
-    const {fname, lname, email, password} = formData;
-    console.log(formData);
-    return this.httpClient.post<{ message: string }>(`${this.SERVER_URL}/auth/register`, {
-      email,
-      lname,
-      fname,
-      typeOfUser,
-      password,
-      photoUrl: photoUrl || null
-    });
+  registerUser(formData: any): Observable<{ message: string }> {
+    const {name, mobile, email, password} = formData;
+    let userObj = {name}; //, mobile, email, password
+    // userObj['fcmToken']='test';
+    
+    return this.httpClient.post<{ message: string }>(`${this.SERVER_URL}/sign-up/user`, userObj);
   }
 
 
