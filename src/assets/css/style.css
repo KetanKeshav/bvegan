@@ -472,7 +472,7 @@ textarea.input {
 }
 
 .header-search form .input {
-  width: calc(100% - 260px);
+  width: calc(100%);
   margin-right: -4px;
 }
 
@@ -2127,6 +2127,17 @@ textarea.input {
   position: static;
   margin: 15px 0px;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 /*=========================================================
 	13 -> RESPONSIVE

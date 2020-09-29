@@ -1,5 +1,49 @@
-<br><br>
-  <div class="col-sm-12">
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" [destroyOnHide]="false" class="nav-tabs">
+  <li [ngbNavItem]="1" [destroyOnHide]="true">
+    <a ngbNavLink>SUMMARY</a>
+    <ng-template ngbNavContent>
+       <div class="col-sm-12">
+    <h6>DELIVERY SLOT</h6>
+    <div class="card">
+      <div class="card-body">
+        <p class="card-text">Fri 26 Aug 2020</p>
+        <p class="card-text">10:00 AM - 12:00 PM</p>
+        <p class="card-text">Order Status: Complete</p>
+      </div>
+    </div>
+  </div>
+
+ <br>
+
+ <div class="col-sm-12">
+      <h6>ADDRESS</h6>
+     <div class="card">
+      <div class="card-body">
+        <p class="card-text">Vishnu Vijay</p>
+        <p class="card-text">Address </p>
+        <p class="card-text"><i class="fa fa-phone"></i>9999999999</p>
+      </div>
+    </div>
+ </div>
+ <br>
+ <div class="col-sm-12">
+      <h6>PAYMENT DETAILS</h6>
+     <div class="card">
+      <div class="card-body">
+        <p class="card-text"><strong>Order No:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DX-NMDSHHS-2343535</p>
+        <p class="card-text"><strong>Invoice No:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DX-2343535</p>
+        <p class="card-text"><strong>PAYMENT OPTIONS</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WALLET</p>
+        <p class="card-text"><strong>Order Items:</strong>7 items</p>
+        <p class="card-text"><strong>Sub Total</strong>Rs 266.88</p>
+        <p class="card-text"><strong>Delivery Charges</strong>Rs 50</p>
+        <p class="card-text"><strong>Credit availed from Bvegan</strong>-Rs 40</p>
+        <p class="card-text"><strong>Total</strong>Rs 276</p>
+        <p>(Accepted food coupon for this order is Rs 0)</p>
+      </div>
+    </div>
+ </div>
+ <br><br>
+ <div class="col-sm-12">
     <h6>DELIVERY SLOT</h6>
     <div class="card">
       <div class="card-body">
@@ -38,4 +82,79 @@
       </div>
     </div>
  </div>
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="2">
+    <a ngbNavLink>ITEMS</a>
+    <ng-template ngbNavContent>
+    
+<div class="card">
+  <br><br>
+<div class="card-deck">
 
+<div class="col-sm-3 col-xs-3 welcome-grids"> 
+  <div class="card">
+    <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" class="card-img-top" width="200" heaight="200" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Tomato</h5>
+      <p class="card-text">500gm</p>
+      <p class="card-text" >Rs 35 </p>
+      <p class="card-text float-right" >Quantity:1</p>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-3 col-xs-3 welcome-grids">
+  <div class="card">
+    <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+            <h5 class="card-title">Tomato</h5>
+            <p class="card-text">500gm</p>
+            <p class="card-text" >Rs 35 </p>
+            <p class="card-text float-right" >Quantity:1</p>
+    </div>
+  </div>
+ </div>
+
+
+<div class="col-sm-3 col-xs-3 welcome-grids"> 
+  <div class="card">
+    <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Tomato</h5>
+      <p class="card-text">500gm</p>
+      <p class="card-text" >Rs 35 </p>
+      <p class="card-text float-right" >Quantity:1</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-sm-3 col-xs-3 welcome-grids">  
+  <div class="card">
+    <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Tomato</h5>
+      <p class="card-text">500gm</p>
+      <p class="card-text" >Rs 35 </p>
+      <p class="card-text float-right" >Quantity:1</p>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+
+    </ng-template>
+  </li>
+  <li [ngbNavItem]="3">
+    <a ngbNavLink>MODIFIED</a>
+    <ng-template ngbNavContent let-active>
+     
+
+    </ng-template>
+  </li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+<br><br>

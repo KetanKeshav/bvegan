@@ -1,20 +1,6 @@
+
 <!-- HEADER -->
 <header>
-  <!-- TOP HEADER -->
-  <div id="top-header">
-    <div class="container">
-
-
-      <ul class="header-links pull-right">
-        <li><a routerLink="/profile"><i class="fa fa-sign-in"></i> {{authState === false ? 'LOGIN' : 'My Account'}}</a></li>
-        <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> SIGN UP</a></li>
-        <li *ngIf="roleName == 'ADMIN'"><a href="/product/1" ><i class="fa fa-user-plus"></i> ADMIN</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- /TOP HEADER -->
-
   <!-- MAIN HEADER -->
   <div id="header">
     <!-- container -->
@@ -35,31 +21,24 @@
         <div class="col-md-6">
           <div class="header-search">
             <form>
-              <select name="categoryDropDown" class="input-select" [(ngModel)]="selectedCategory" 
+             <!-- <select name="categoryDropDown" class="input-select" [(ngModel)]="selectedCategory" 
               (change)="onCatChange($event)">
                 <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
-              </select>
+              </select>-->
               <input (change)="onTypeAheadChange()" (keyup)="keyFunc($event)"
               (selectItem)="selectedItem($event)" id="selectedProduct" name="selectedProduct" type="text" [(ngModel)]="selectedProduct" [ngbTypeahead]="search"
-              class="input" placeholder="Search here" [inputFormatter]="inputFormatter" [resultFormatter]="resultFormatter">
+              class="input" placeholder="What are you looking for?" [inputFormatter]="inputFormatter" [resultFormatter]="resultFormatter">
              <!-- <button class="search-btn" (click)="searchProducts()">Search</button> -->
             </form>
           </div>
         </div>
         <!-- /SEARCH BAR -->
 
-        <!-- ACCOUNT -->
-        <div class="col-md-3 clearfix">
-          <div class="header-ctn">
-            <!-- Wishlist -->
-            <div>
-              <a href="#">
-                <i class="fa fa-heart-o"></i>
-                <span>Your Wishlist</span>
-                <div class="qty">0</div>
-              </a>
-            </div>
-            <!-- /Wishlist -->
+      <ul class="header-links pull-right">
+        <li><a routerLink="/profile"><i class="fa fa-sign-in"></i> {{authState === false ? 'LOGIN' : 'My Account'}}</a></li>
+        <li *ngIf="!authState"><a routerLink="/register"><i class="fa fa-user-plus"></i> SIGN UP</a></li>
+        <li *ngIf="roleName == 'ADMIN'"><a href="/product/1" ><i class="fa fa-user-plus"></i> ADMIN</a></li>
+      </ul>
 
             <!-- Cart -->
             <div class="dropdown">
@@ -72,7 +51,7 @@
                 <div class="cart-list" *ngIf="cartData.data[0].numInCart !== 0">
                   <div class="product-widget" *ngFor="let c of cartData.data; let i=index">
                     <div class="product-img">
-                      <img [src]="c.product?.image" alt="{{c.product.name}}" width="20px">
+                      <img [src]="c.product?.image"  alt="{{c.product.name}}" width="20px">
                     </div>
                     <div class="product-body">
                       <h3 class="product-name"><a href="#">{{c.product.name}}</a></h3>
@@ -92,44 +71,3 @@
               </div>
             </div>
             <!-- /Cart -->
-
-            <!-- Menu Toogle -->
-            <div class="menu-toggle">
-              <a href="#">
-                <i class="fa fa-bars"></i>
-                <span>Menu</span>
-              </a>
-            </div>
-            <!-- /Menu Toogle -->
-          </div>
-        </div>
-        <!-- /ACCOUNT -->
-      </div>
-      <!-- row -->
-    </div>
-    <!-- container -->
-  </div>
-  <!-- /MAIN HEADER -->
-</header>
-<!-- /HEADER -->
-
-<!-- NAVIGATION -->
-<nav id="navigation">
-  <!-- container -->
-  <div class="container">
-    <!-- responsive-nav -->
-    <div id="responsive-nav">
-      <!-- NAV -->
-      <ul class="main-nav nav py-3">
-        <li class="active"><a routerLink="/">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">FAQ</a></li>
-        <li><a href="#">Contact Us</a></li>
-      </ul>
-      <!-- /NAV -->
-    </div>
-    <!-- /responsive-nav -->
-  </div>
-  <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->

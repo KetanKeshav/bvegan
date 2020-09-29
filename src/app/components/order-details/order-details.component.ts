@@ -5,7 +5,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './order-details.component.html',
   styleUrls: ['./order-details.component.scss']
 })
+
 export class OrderDetailsComponent implements OnInit {
+	
+  active = 1;
 
   constructor() { }
 
