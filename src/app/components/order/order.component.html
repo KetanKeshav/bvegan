@@ -1,23 +1,37 @@
-<br>
+<br><br>
 <div class="d-flex flex-column align-items-center justify-content-around">
 <form action="">
-  <label for="birthday">From</label>
-  <input type="date" id="birthday" name="birthday">
-  <label for="birthday">To</label>
-  <input type="date" id="birthday" name="birthday">
+  <label for="from">From</label>
+  <input type="date" id="from" name="from">
+    <label for="to">To</label>
+  <input type="date" id="to" name="to">
   <input type="submit">
 </form>
 </div>
+<br>
+
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
 <div class="row">
-  <div class="col-sm-6" *ngFor="let order of userOrders">
+  <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
         <i class="fas fa-check-circle"></i>
-        <h5 class="card-title">{{order.orderCreated}}</h5>
-        <p class="card-text">{{order.orderNumber}}</p>
-        <p class="card-text">Rs {{order.totalCost}}</p>
-        <p class="card-text">{{order.orderStatus}}</p>
+        <h5 class="card-title">Fri 26 Aug 2020</h5>
+        <p class="card-text">DX-MBO-13316776-899900</p>
+        <p class="card-text">Rs 308</p>
+        <p class="card-text">6 items&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complete</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+      <div class="card">
+      <div class="card-body">
+        <i class="fas fa-check-circle"></i>
+        <h5 class="card-title">Fri 26 Aug 2020</h5>
+        <p class="card-text">DX-MBO-13316776-899900</p>
+        <p class="card-text">Rs 308</p>
+        <p class="card-text">6 items&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complete</p>
       </div>
     </div>
   </div>
