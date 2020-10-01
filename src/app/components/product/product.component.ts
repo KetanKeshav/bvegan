@@ -21,6 +21,7 @@ export class ProductComponent implements OnInit { //, AfterViewInit
   productsOnLoad: any[] = [];
   thumbImages: any[] = [];
   userRole = '';
+  inLineBlock=false;
   compRoute: ActivatedRoute;
   @ViewChild('fileInput') el: ElementRef;
   
@@ -55,6 +56,30 @@ export class ProductComponent implements OnInit { //, AfterViewInit
   }
 
   uploadFile(event) {
+  }
+  getAddRemoveButtonCss(product:any, origClass){
+    if (product['userBuying']) {
+      return 'inline-block';
+    } else {
+      return origClass;
+    }
+  }
+
+  modifyQuantity(product:any, action:string) {
+    if (action=='add') {
+      product['quantity'] = product['quantity'] + 1;
+    } else {
+      product['quantity'] = product['quantity'] - 1;
+    }
+    if (product['quantity'] == 0) {
+      product.userBuying = false;
+      
+    }
+  }
+  addToCart(product:any) {
+    product['userBuying']=true;
+    product['quantity']=1;
+    
   }
 
   loadProducts() {

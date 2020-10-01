@@ -12,26 +12,14 @@
 
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-6"  *ngFor="let order of userOrders"> 
     <div class="card">
       <div class="card-body">
         <i class="fas fa-check-circle"></i>
-        <h5 class="card-title">Fri 26 Aug 2020</h5>
-        <p class="card-text">DX-MBO-13316776-899900</p>
-        <p class="card-text">Rs 308</p>
-        <p class="card-text">6 items&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complete</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6">
-      <div class="card">
-      <div class="card-body">
-        <i class="fas fa-check-circle"></i>
-        <h5 class="card-title">Fri 26 Aug 2020</h5>
-        <p class="card-text">DX-MBO-13316776-899900</p>
-        <p class="card-text">Rs 308</p>
-        <p class="card-text">6 items&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Complete</p>
+        <h5 class="card-title">{{order.orderCreated}}</h5>
+        <p class="card-text">{{order.orderNumber}}</p>
+        <p class="card-text">Rs {{order.totalCost}}</p>
+        <p class="card-text">{{order.orderStatus}}</p>
       </div>
     </div>
   </div>

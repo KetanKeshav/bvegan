@@ -50,6 +50,33 @@
 </div> <!-- row.// -->
 </div> 
 
+
+<div class="container">
+  <div class="row" *ngIf="userRole!='ADMIN'">
+  <div class="col-md-4" *ngFor="let p of products">
+    <figure class="card card-product">
+      <div class="img-wrap"><img src={{p.productImagesEntityList[0].productImageUrl}}></div>
+      <figcaption class="info-wrap">
+        <div class="title" class="editable"><h4 contenteditable>{{p.name}}</h4></div>
+         <div class="desc" class="editable"><p contenteditable>{{p.unitInGramsPerUnit}}g</p></div>
+
+        <div class="editable">
+          <div class="editable"><span class="price-new"><h5 contenteditable>Rs{{p.sellingPricePerUnit}}</h5></span> &nbsp;<del class="editable"class="price-old"><h5 contenteditable>Rs {{p.displayPricePerUnit}}</h5></del></div>
+        </div>
+     </figcaption>
+
+     <div class="center">
+      <div class="main">
+          <div class="btn">
+              <button (click)="modifyQuantity(p, 'remove')"
+              [ngClass]="getAddRemoveButtonCss(p, 'minusBtn')">-</button>
+              <button  class="mainBtn" (click)="addToCart(p)" >{{p.userBuying == true ? ''+p.quantity+'' :'ADD TO CART'}}</button>
+              <button (click)="modifyQuantity(p, 'add')"
+              [ngClass]="getAddRemoveButtonCss(p, 'plusBtn')">+</button>
+          </div>
+      </div>
+      </div>
+
 <script>
 
     let btn = document.querySelector('.mainBtn');
