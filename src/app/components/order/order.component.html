@@ -1,19 +1,33 @@
 <br><br>
-<div class="d-flex flex-column align-items-center justify-content-around">
+<div *ngIf="getRoleName() == 'SUPER_ADMIN' || 'ADMIN'"class="d-flex flex-column align-items-center justify-content-around">
 <form action="">
   <label for="from">From</label>
-  <input type="date" id="from" name="from">
+  <input [ngModel]="fromDate | date:'yyyy-MM-dd'" (ngModelChange)="fromDate = $event" type="date" id="from" name="from">
     <label for="to">To</label>
-  <input type="date" id="to" name="to">
-  <input type="submit">
+  <input [ngModel]="toDate | date:'yyyy-MM-dd'" (ngModelChange)="toDate = $event" type="date" id="to" name="to">
+
+
+  <div class="form-check">
+    <label class="form-check-label">
+       <input type="checkbox" [checked]="paymentSuccess" (change)="paymentSuccess = !paymentSuccess"> Payment Success
+    </label>
+    <label class="form-check-label">
+      <input type="checkbox" [checked]="paymentInitialized" (change)="paymentInitialized = !paymentInitialized"> Payment Initialized
+   </label>
+   <label class="form-check-label">
+    <input type="checkbox" [checked]="expired" (change)="expired = !expired"> Expired
+ </label>
+  </div>
+
+  <button type="submit" (click)="getOrderBetweenDates()">Submit</button>
 </form>
 </div>
 <br>
 
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.8.1/css/all.css'>
-<div class="row">
+<div class="row" >
   <div class="col-sm-6"  *ngFor="let order of userOrders"> 
-    <div class="card">
+    <div class="card" (click)="routeToOrderDetail(order)">
       <div class="card-body">
         <i class="fas fa-check-circle"></i>
         <h5 class="card-title">{{order.orderCreated}}</h5>

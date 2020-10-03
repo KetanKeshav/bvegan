@@ -6,6 +6,7 @@ import {environment} from '../../environments/environment';
   providedIn: 'root'
 })
 export class OrderService {
+  private SERVER_URL = environment.SERVER_URL;
   private products: ProductResponseModel[] = [];
   private serverUrl = environment.SERVER_URL;
 
@@ -14,6 +15,10 @@ export class OrderService {
 
   getSingleOrder(orderId: number) {
     return this.http.get<ProductResponseModel[]>(this.serverUrl + '/orders/' + orderId).toPromise();
+  }
+
+  getOrderBetweenDates(orderObj) {
+    return this.http.post(this.SERVER_URL+'/admin/user-order', orderObj);
   }
 
 

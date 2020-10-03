@@ -35,7 +35,7 @@ const routes: Routes = [
         path: 'order', component: OrderComponent
       },
       {
-        path: 'order-details', component: OrderDetailsComponent
+        path: 'order-detail/:id', component: OrderDetailsComponent
       },
       {
         path: 'checkout', component: CheckoutComponent, canActivate: [ProfileGuard]

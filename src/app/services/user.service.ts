@@ -54,6 +54,14 @@ export class UserService {
     });*/
   }
 
+  resendOtp(otpObject) {
+    return this.httpClient.post(`${this.SERVER_URL}/resend-otp`, otpObject);
+  }
+
+  validateOtp(otpObject: any) {
+    return this.httpClient.post(`${this.SERVER_URL}/validate-otp`, otpObject);
+  }
+
   //  Login User with Email and Password
   loginUser(emailId: string, password: string) {
     return this.httpClient.post(`${this.SERVER_URL}/login`, {emailId, password});
@@ -90,8 +98,8 @@ export class UserService {
 
   registerUser(formData: any): Observable<{ message: string }> {
     const {name, mobile, email, password} = formData;
-    let userObj = {name}; //, mobile, email, password
-    // userObj['fcmToken']='test';
+    let userObj = {name, mobile, email, password}; 
+    userObj['fcmToken']='test';
     
     return this.httpClient.post<{ message: string }>(`${this.SERVER_URL}/sign-up/user`, userObj);
   }

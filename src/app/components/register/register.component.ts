@@ -4,6 +4,7 @@ import {CheckEmailService} from '../../validators/check-email.service';
 import {UserService} from '../../services/user.service';
 import {map} from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DataService } from '@app/services/data.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,8 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private checkEmailService: CheckEmailService,
               private userService: UserService,
-              private router: Router,) {
+              private router: Router,
+              private dataService: DataService) {
 
     this.registrationForm = fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
@@ -54,7 +56,8 @@ export class RegisterComponent implements OnInit {
   registerUser() {
 
     // @ts-ignore
-    this.userService.registerUser({...this.registrationForm.value}).subscribe((response: { message: string }) => {
+    this.userService.registerUser({...this.registrationForm.value}).subscribe((response: any) => {
+      this.dataService.updateBkendTokenForOtp(response.model.otpToken);
       //this.registrationMessage = response.message;
       this.router.navigateByUrl('/otp-validation');
       

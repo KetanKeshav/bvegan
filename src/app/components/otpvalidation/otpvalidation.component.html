@@ -2,21 +2,15 @@
 <h1>Verify Account</h1>
 <p>We have sent the OTP to your Email id</p>
 <div class="otp-page-wrapper">
-<form class="otp" autocomplete="off" novalidate>
-    <fieldset>
-      <input maxlength="1"/>
-      <input maxlength="1"/>
-      <input maxlength="1"/>
-      <input maxlength="1"/>
-      <input maxlength="1"/>
-      <input maxlength="1"/>
-    </fieldset>
-</form>
+  <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)"  [config]="{length:6}"></ng-otp-input>
+  <button type="button" (click)="validateOtp()">Validate</button>
 <br>
 <p>Din't receive an OTP ? Resend</p>
 <br>
 <div class="d-flex flex-column align-items-center justify-content-around">
-<button class="button">Resend</button>
+<button type="button" class="button">Resend</button>
 </div>
 </div>
+
+
 <br><br>

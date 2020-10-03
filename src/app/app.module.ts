@@ -28,6 +28,8 @@ import { OrderComponent } from './components/order/order.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { NotificationService } from './services/notification.service';
 import { OtpvalidationComponent } from './components/otpvalidation/otpvalidation.component';
+import { DataService } from './services/data.service';
+import { NgOtpInputModule } from  'ng-otp-input';
 
 
 const config = new AuthServiceConfig([
@@ -71,9 +73,11 @@ export function provideConfig() {
     FormsModule,
     ReactiveFormsModule,
     SocialLoginModule,
-    NgbModule
+    NgbModule,
+    NgOtpInputModule
   ],
   providers: [
+    DataService,
     FireBaseService,
     NotificationService,
     {
