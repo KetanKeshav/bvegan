@@ -46,8 +46,103 @@
   <li [ngbNavItem]="2">
     <a ngbNavLink>Items</a>
     <ng-template ngbNavContent>
-      
 
+      <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'>
+<div class="wrap cf">
+  <div class="heading cf">
+    <h1>My Items</h1>
+  </div>
+  <div class="cart">
+<!--    <ul class="tableHead">
+      <li class="prodHeader">Product</li>
+      <li>Quantity</li>
+      <li>Total</li>
+       <li>Remove</li>
+    </ul>-->
+    <ul class="cartWrap">
+      <li class="items odd">
+        
+    <div class="infoWrap"> 
+        <div class="cartSection">
+        <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" alt="" class="itemImg" />
+          <p class="itemNumber">#QUE-007544-002</p>
+          <h3>Item Name 1</h3>
+          <p>500gm</p><br>
+          <p>Rs15.00</p>
+        </div>  
+    
+        
+        <div class="prodTotal cartSection">
+          <p>Quantity 1</p>
+        </div>
+              
+      </div>
+      </li>
+      <li class="items even">
+        
+       <div class="infoWrap"> 
+        <div class="cartSection">
+         
+        <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" alt="" class="itemImg" />
+          <p class="itemNumber">#QUE-007544-002</p>
+          <h3>Item Name 1</h3>
+          <p>500gm</p><br>
+          <p>Rs15.00</p>      
+        </div>  
+    
+        
+        <div class="prodTotal cartSection">
+           <p>Quantity 1</p>
+        </div>
+              
+      </div>
+      </li>
+      
+            <li class="items odd">
+             <div class="infoWrap"> 
+        <div class="cartSection">
+            
+        <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" alt="" class="itemImg" />
+          <p class="itemNumber">#QUE-007544-002</p>
+          <h3>Item Name 1</h3>
+          <p>500gm</p><br>
+          <p>Rs15.00</p>
+        </div>  
+    
+        
+        <div class="prodTotal cartSection">
+             <p>Quantity 1</p>
+        </div>
+              
+              </div>
+      </li>
+      <li class="items even">
+       <div class="infoWrap"> 
+        <div class="cartSection info">
+             
+        <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" alt="" class="itemImg" />
+          <p class="itemNumber">#QUE-007544-002</p>
+          <h3>Item Name 1</h3>
+          <p>500gm</p><br>
+          <p>Rs15.00</p>
+        </div>  
+    
+        
+        <div class="prodTotal cartSection">
+           <p>Quantity 1</p>
+        </div>
+         </div>
+    
+      </li>
+      
+      
+      <!--<li class="items even">Item 2</li>-->
+ 
+    </ul>
+  </div>
+  
+  
+</div>
 
 
 
@@ -60,7 +155,23 @@
   <li [ngbNavItem]="3">
     <a ngbNavLink>Modified</a>
     <ng-template ngbNavContent>
-      
+
+<br>
+<div class="d-flex flex-column align-items-center justify-content-around">
+<table id='products'>
+  <thead>
+    <tr>
+      <th  bgcolor="#32cd32">Action</th>
+      <th bgcolor="#32cd32">Item</th>
+  </thead>
+  <tbody>
+    <p>Sample text</p>
+
+  </tbody>
+</table>
+</div>
+   
+<br>
     </ng-template>
   </li>
 </ul>
