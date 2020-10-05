@@ -6,8 +6,9 @@
     <h6>DELIVERY SLOT</h6>
     <div class="card">
       <div class="card-body">
-        <p class="card-text">Fri 26 Aug 2020</p>
-        <p class="card-text">10:00 AM - 12:00 PM</p>
+        
+        <div class="editable"><i class="fa fa-pencil"></i><p class="card-text" contenteditable>Fri 26 Aug 2020</p></div>
+        <div class="editable"><i class="fa fa-pencil"></i><p class="card-text" contenteditable>10:00 AM - 12:00 PM</p></div>
         <p class="card-text">Order Status: Complete</p>
       </div>
     </div>
@@ -65,15 +66,15 @@
     <div class="infoWrap"> 
         <div class="cartSection">
         <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" alt="" class="itemImg" />
-          <p class="itemNumber">#QUE-007544-002</p>
-          <h3>Item Name 1</h3>
-          <p>500gm</p><br>
+          <div class="editable"><i class="fa fa-pencil"></i><p class="itemNumber" contenteditable>#QUE-007544-002</p></div>
+          <div class="editable"><i class="fa fa-pencil"></i><h3 contenteditable>Item Name 1</h3></div>
+          <div class="editable"><i class="fa fa-pencil"></i><p contenteditable>500gm</p></div>
           <p>Rs15.00</p>
         </div>  
     
         
         <div class="prodTotal cartSection">
-          <p>Quantity 1</p>
+          <div class="editable"><i class="fa fa-pencil"></i><p contenteditable>Quantity 1</p></div>
         </div>
               
       </div>
@@ -82,17 +83,16 @@
         
        <div class="infoWrap"> 
         <div class="cartSection">
-         
-        <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" alt="" class="itemImg" />
-          <p class="itemNumber">#QUE-007544-002</p>
-          <h3>Item Name 1</h3>
-          <p>500gm</p><br>
+          <img src="https://vegies-static-images.s3.ap-south-1.amazonaws.com/tomato1.jpeg" alt="" class="itemImg" />
+          <div class="editable"><i class="fa fa-pencil"></i><p class="itemNumber" contenteditable>#QUE-007544-002</p></div>
+          <div class="editable"><i class="fa fa-pencil"></i><h3 contenteditable>Item Name 1</h3></div>
+          <div class="editable"><i class="fa fa-pencil"></i><p contenteditable>500gm</p></div>
           <p>Rs15.00</p>      
         </div>  
     
         
         <div class="prodTotal cartSection">
-           <p>Quantity 1</p>
+           <div class="editable"><i class="fa fa-pencil"></i><p contenteditable>Quantity 1</p></div>
         </div>
               
       </div>
@@ -146,10 +146,6 @@
 
 
 
-
-
-
-
     </ng-template>
   </li>
   <li [ngbNavItem]="3">
@@ -165,8 +161,7 @@
       <th bgcolor="#32cd32">Item</th>
   </thead>
   <tbody>
-    <p>Sample text</p>
-
+    <div class="editable"><i class="fa fa-pencil"></i><p contenteditable>sample text</p></div>
   </tbody>
 </table>
 </div>
